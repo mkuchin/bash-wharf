@@ -1,7 +1,7 @@
 export DIGITALOCEAN_PRIVATE_NETWORKING=true
 export DIGITALOCEAN_REGION=sgp1
 . settings
-. token
+export DIGITALOCEAN_ACCESS_TOKEN=$(cat token)
 NODE=$1
 docker-machine create --driver digitalocean $NODE
 
