@@ -3,5 +3,11 @@ APP=$2
 IMAGE=$3
 #optional param, default=$APP
 IMAGE=${APP:-$IMAGE}
-. runon.sh $NODE 
-docker run -d --name=$APP --net=host build.devspire.com.au/$IMAGE
+. settings
+. runon.sh $NODE
+ENV_FILE=apps/$APP.env 
+if [ -e $ENV_FILE ]
+then
+  PARAMS=$(cat $ENV_FILE)
+fi
+docker run -d --name=$APP --net=host $PARAMS $REGISTRY_HOST/$IMAGE
